@@ -2,7 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,intellij
 # User-specific configurations
 ### Gradle ###
-
+back/gradlew
+back/.gitignore
 HELP.md
 ./gradlew
 ./.gitignore
