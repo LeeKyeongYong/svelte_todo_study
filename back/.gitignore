@@ -1,4 +1,5 @@
 HELP.md
+application.secret.ytml.default
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
