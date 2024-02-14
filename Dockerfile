@@ -1,2 +1,2 @@
 FROM nginx
-COPY ./svelte_todo_study /usr/share/todo/back
+COPY ./nginx /usr/share/nginx/html
