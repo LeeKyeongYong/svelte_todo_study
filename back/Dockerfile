@@ -11,4 +11,4 @@ RUN ./gradlew build --no-daemon
 FROM ghcr.io/graalvm/jdk-community:19
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]✅
