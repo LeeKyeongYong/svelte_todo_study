@@ -1,3 +1,4 @@
 FROM nginx
 
-COPY ./nginx-1 /usr/share/nginx/html
+COPY ./back /usr/share/todo/back
+COPY ./front /usr/share/todo/front
