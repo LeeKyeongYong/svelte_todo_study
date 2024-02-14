@@ -1,0 +1,59 @@
+name: work-1
+on:
+  push:
+    branches:
+      - main
+jobs:
+  hello1:
+    name: 헬로1
+    runs-on: ubuntu-latest
+    steps:
+      - name: sayHi
+        run: echo "Hi"
+      - name: sayMyName
+        run: echo "${{ github.actor }}"
+  makeTagAndRelease:
+    name: 태그와 릴리즈 생성
+    outputs:
+      tag_name: ${{ steps.tag_version.outputs.new_tag }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: mathieudutour/github-tag-action@v6.1
+        id: tag_version
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+  buildImageAndPush:
+    name: 도커 이미지 빌드와 푸시
+    needs: makeTagAndRelease
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker Buildx 설치
+        uses: docker/setup-buildx-action@v2
+      - name: 레지스트리 로그인
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >> ${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+      - name: 빌드 앤 푸시
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ env.OWNER_LC }}/nginx-image-1:${{ needs.makeTagAndRelease.outputs.tag_name }},
+            ghcr.io/${{ env.OWNER_LC }}/nginx-image-1:latest
