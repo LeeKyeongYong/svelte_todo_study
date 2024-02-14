@@ -1,0 +1,3 @@
+FROM nginx
+
+COPY ./NGINX-1  /usr/share/nginx/S_TODO
