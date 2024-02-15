@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
-@NoArgsConstructor(access = PRIVATE)
+@NoArgsConstructor(access = PRIVATE, force = true)
 @Getter
 public class RespData<T> {
     public static final RespData<Empty> OK = of("200-1", "성공", new Empty());

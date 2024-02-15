@@ -32,8 +32,8 @@ public class ApiV1MemberController {
     @Operation(summary = "로그인, accessToken, refreshToken 쿠키 생성됨")
     public RespData<LoginResponseBody> login(@Valid @RequestBody LoginRequestBody body){
         RespData<MemberService.AuthAndMakeTokensResponseBody> authAndMakeTokensRs = memberService.authAndMakeTokens(
-                body.username,
-                body.password,
+                body.username(),
+                body.password()
         );
 
         req.setCrossDomainCookie("refreshToken",authAndMakeTokensRs.getData().refreshToken());
