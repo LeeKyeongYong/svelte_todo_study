@@ -1,10 +1,14 @@
 <script lang="ts">
-	import type { Todo } from './TodoRq.svelte';
-	import { makeTodo } from './TodoRq.svelte';
+	import type { Todo } from './TodoReq.svelte';
+	import { makeTodo } from './TodoReq.svelte';
+
 	const { todos } = $props<{ todos: Todo[] }>();
+
 	function addTodo(this: HTMLFormElement) {
 		const form = this;
+
 		if (form.todoContent.value.trim().length === 0) return;
+
 		todos.push(makeTodo(todos.length + 1, form.todoContent.value, false));
 		form.todoContent.value = '';
 		form.todoContent.focus();

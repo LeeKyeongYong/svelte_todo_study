@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Todo } from './TodoReq.svelte';
 	import TodoEdit from './TodoEdit.svelte';
-	
+
 	const { todos } = $props<{ todos: Todo[] }>();
 	let todoEdit = $state() as any;
 
@@ -9,10 +9,7 @@
 	$effect(() => {
 		for (const todo of todos) console.log(todo.content, todo.completed);
 	});
-	
 </script>
-
-
 
 <h2>할일 목록({completed}/{todos.length})</h2>
 <ul class="grid gap-2">

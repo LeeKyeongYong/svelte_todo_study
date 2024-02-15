@@ -13,4 +13,3 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <p onclick={() => age++}>나이: {age}</p>
 <p>나이 2배: {doubleAge}</p>
- 15 changes: 15 additions & 0 deletions15  

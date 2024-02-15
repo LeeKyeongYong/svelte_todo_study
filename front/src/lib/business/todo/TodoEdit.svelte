@@ -1,23 +1,31 @@
 <script lang="ts">
-	import type { Todo } from './TodoReq.svelte';
+	import type { Todo } from './TodoRq.svelte';
+
 	const { todos } = $props<{ todos: Todo[] }>();
+
 	let editingTodo: Todo = $state({ id: 0, content: '', completed: false });
+
 	export function showTodoEditModal(todo: Todo) {
 		Object.assign(editingTodo, todo);
+
 		const modal = document.getElementById('todo-edit-modal') as HTMLDialogElement;
 		modal.showModal();
+
 		modal.querySelector('input')?.focus();
 	}
+
 	function submitEditTodoForm() {
 		// 일치하는 todo의 인덱스를 찾습니다.
 		const index = todos.findIndex((todo) => todo.id === editingTodo.id);
+
 		// 인덱스가 유효한 경우, 해당 위치의 todo를 수정합니다.
 		if (index !== -1) {
 			todos[index].content = editingTodo.content;
 		}
-		hideTodoEditModal();
 
-		}
+		hideTodoEditModal();
+	}
+
 	function hideTodoEditModal() {
 		const modal = document.getElementById('todo-edit-modal') as HTMLDialogElement;
 		modal.close();
