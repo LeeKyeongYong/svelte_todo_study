@@ -1,33 +1,25 @@
 <script lang="ts">
-	import TodoList from '$lib/business/todo/TodoList.svelte';
+	import type { Todo } from './types';
+	const { todos } = $props<{ todos: Todo[] }>();
+	let editingTodo: Todo = $state({ id: 0, content: '', completed: false });
+	export function showTodoEditModal(todo: Todo) {
+		Object.assign(editingTodo, todo);
+		const modal = document.getElementById('todo-edit-modal') as HTMLDialogElement;
+		modal.showModal();
+		modal.querySelector('input')?.focus();
+	}
+	function submitEditTodoForm(this: HTMLFormElement, event: Event) {
+		const form = this;
+		// 일치하는 todo의 인덱스를 찾습니다.
+		const index = todos.findIndex((todo) => todo.id === editingTodo.id);
+		// 인덱스가 유효한 경우, 해당 위치의 todo를 수정합니다.
+		if (index !== -1) {
+			todos[index].content = editingTodo.content;
+		}
+		const modal = document.getElementById('todo-edit-modal') as HTMLDialogElement;
+		modal.close();
+	}
 </script>
-
-{#snippet TodoList(todos)}
-
-<h2>할일</h2>
-<ul>
-	{#each todos as todo (todo.id)}
-		<li>
-			{todo.content}
-			<input type="checkbox" class="checkbox" bind:checked={todo.completed} />
-			<button class="btn btn-outline btn-sm" onclick={() => showTodoEditModal(todo)}>수정</button>
-			<button class="btn btn-outline btn-sm">삭제</button>
-		</li>
-	{/each}
-</ul>
-
-<hr />
-
-<h2>할일 목록</h2>
-<ul>
-	{#each todos as todo (todo.id)}
-		<li>
-			{todo.content}
-			<input type="checkbox" class="checkbox" bind:checked={todo.completed} />
-		</li>
-	{/each}
-</ul>
-{/snippet}
 
 <dialog id="todo-edit-modal" class="modal">
 	<div class="modal-box">
@@ -65,7 +57,3 @@
 		<button></button>
 	</form>
 </dialog>
-
-{@render TodoList(todos)}
-<h3/>
-{@render TodoList(todos)}
