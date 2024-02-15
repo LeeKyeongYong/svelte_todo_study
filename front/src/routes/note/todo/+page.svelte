@@ -1,7 +1,8 @@
 <script lang="ts">
-	import TodoList from '$lib/business/todo/TodoList.svelte';
+	import TodoAddAndList from '$lib/business/todo/TodoAddAndList.svelte';
 </script>
 
+<TodoAddAndList />
 {#snippet TodoList(todos)}
 
 <h2>할일</h2>

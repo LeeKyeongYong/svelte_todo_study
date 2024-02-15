@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Todo } from './types';
+	import type { Todo } from './TodoReq.svelte';
 	const { todos } = $props<{ todos: Todo[] }>();
 	let editingTodo: Todo = $state({ id: 0, content: '', completed: false });
 	export function showTodoEditModal(todo: Todo) {
@@ -8,14 +8,17 @@
 		modal.showModal();
 		modal.querySelector('input')?.focus();
 	}
-	function submitEditTodoForm(this: HTMLFormElement, event: Event) {
-		const form = this;
+	function submitEditTodoForm() {
 		// 일치하는 todo의 인덱스를 찾습니다.
 		const index = todos.findIndex((todo) => todo.id === editingTodo.id);
 		// 인덱스가 유효한 경우, 해당 위치의 todo를 수정합니다.
 		if (index !== -1) {
 			todos[index].content = editingTodo.content;
 		}
+		hideTodoEditModal();
+
+		}
+	function hideTodoEditModal() {
 		const modal = document.getElementById('todo-edit-modal') as HTMLDialogElement;
 		modal.close();
 	}
@@ -40,15 +43,7 @@
 			</label>
 			<div class="grid grid-cols-2 gap-3">
 				<button class="btn btn-primary">저장</button>
-				<button
-					type="button"
-					class="btn btn-outline"
-					onclick={() => {
-					const modal = document.getElementById('todo-edit-modal') as HTMLDialogElement;
-					modal.close();
-				}}
-					>취소</button
-				>
+				<button type="button" class="btn btn-outline" onclick={hideTodoEditModal}>취소</button>
 			</div>
 		</form>
 	</div>
