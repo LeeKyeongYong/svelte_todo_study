@@ -1,8 +1,15 @@
 <script lang="ts">
+
+	interface Todo{
+		id:number;
+		content: string;
+		completed: boolean;
+	}
+
 	function makeTodo(id: number, content: string, completed: boolean) {
 		return { id, content, completed };
 	}
-	const todos = $state([
+	const todos: Todo[] = $state([
 		makeTodo(1, '할일 1', false),
 		makeTodo(2, '할일 2', false),
 		makeTodo(3, '할일 3', false)
@@ -20,12 +27,7 @@
 	}
 </script>
 
-<h1>할일</h1>
-<h2>할일 추가({completed}/{todos.length})</h2>
-<form on:submit|preventDefault={addTodo}>
-	<input name="todoContent" type="text" class="input input-bordered" placeholder="할일" />
-	<input type="submit" value="추가" class="btn btn-primary" />
-</form>
+{#snippet TodoList(todos)}
 
 <h2>할일 목록</h2>
 <ul>
@@ -48,3 +50,8 @@
 		</li>
 	{/each}
 </ul>
+{/snippet}
+
+{@render TodoList(todos)}
+<h3/>
+{@render TodoList(todos)}
