@@ -2,14 +2,17 @@ package com.todostudy.myjob.global.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 
+@Configuration
+@RequiredArgsConstructor
 public class AppConfig {
-
     private static String activeProfile;
 
     @Value("${spring.profiles.active}")
@@ -17,7 +20,7 @@ public class AppConfig {
         this.activeProfile = activeProfile;
     }
 
-    public static boolean isProd(){
+    public static boolean isProd() {
         return activeProfile.equals("prod");
     }
 
@@ -32,6 +35,7 @@ public class AppConfig {
     public static boolean isNotProd() {
         return !isProd();
     }
+
     @Getter
     private static String jwtSecretKey;
 

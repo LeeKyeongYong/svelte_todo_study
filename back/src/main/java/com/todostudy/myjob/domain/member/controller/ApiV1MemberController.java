@@ -33,7 +33,7 @@ public class ApiV1MemberController {
     public RespData<LoginResponseBody> login(@Valid @RequestBody LoginRequestBody body){
         RespData<MemberService.AuthAndMakeTokensResponseBody> authAndMakeTokensRs = memberService.authAndMakeTokens(
                 body.username,
-                body.password
+                body.password,
         );
 
         req.setCrossDomainCookie("refreshToken",authAndMakeTokensRs.getData().refreshToken());

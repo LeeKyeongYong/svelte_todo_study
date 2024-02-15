@@ -1,7 +1,7 @@
 package com.todostudy.myjob.global.https;
 
-import com.todostudy.myjob.standard.base.Empty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.todostudy.myjob.standard.base.Empty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +11,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 @Getter
 public class RespData<T> {
-
-    public static final RespData<Empty> OK = of("200-1","성공",new Empty());
-
+    public static final RespData<Empty> OK = of("200-1", "성공", new Empty());
     @NonNull
     String resultCode;
     @NonNull

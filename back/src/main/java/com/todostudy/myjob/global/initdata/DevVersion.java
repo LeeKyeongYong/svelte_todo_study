@@ -1,5 +1,6 @@
 package com.todostudy.myjob.global.initdata;
 
+import com.todostudy.myjob.global.app.AppConfig;
 import com.todostudy.myjob.standard.base.UtZip;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;

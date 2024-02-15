@@ -17,9 +17,9 @@ import java.io.IOException;
 public class CustomAuthenticationSuccessHandler  extends SavedRequestAwareAuthenticationSuccessHandler {
     private final ReqData req;
     private final AuthTokenService authTokenService;
-
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws ServletException, IOException {
         String redirectUrlAfterSocialLogin = req.getCookieValue("redirectUrlAfterSocialLogin", "");
 
         if (req.isFrontUrl(redirectUrlAfterSocialLogin)) {
@@ -37,3 +37,4 @@ public class CustomAuthenticationSuccessHandler  extends SavedRequestAwareAuthen
 
         super.onAuthenticationSuccess(request, response, authentication);
     }
+}

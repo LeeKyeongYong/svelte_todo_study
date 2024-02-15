@@ -2,7 +2,9 @@ package com.todostudy.myjob.global.exceptionHandlers;
 
 import com.todostudy.myjob.global.https.RespData;
 import com.todostudy.myjob.standard.base.Empty;
+import lombok.Getter;
 
+@Getter
 public class GlobalException extends RuntimeException {
         private final RespData<Empty> rsData;
 
